@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "539865325371",
+    "project_id": "ghdanceacademy-cd8a7",
+    "storage_bucket": "ghdanceacademy-cd8a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539865325371:android:bdc114a3e26d231933211e",
+        "android_client_info": {
+          "package_name": "com.example.project_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539865325371-e601mp6u5jl9c9hafguefpomrgi054mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHM6e2noK4-mfeLXMIWzuYs2YY3dAiKSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539865325371-2qa8cqvllqsl872kn8b11dgr08kdcn2u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "539865325371-gmvl6k28j79i86o4391gq8eoi7d9q1lu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.projectMobile.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
