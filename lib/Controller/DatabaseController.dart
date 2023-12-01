@@ -12,20 +12,31 @@ class DatabaseController extends ClientController {
     databases = Databases(client);
   }
 
-  Future storeUserName(Map map) async {
+  Future storeUserData(String username, String dob, String country,
+      String email, String phone, String gender, String dance) async {
+    Map<String, dynamic> userData = {
+      'username': username,
+      'Date_of_Birth': dob,
+      'Country': country,
+      'Email': email,
+      'Phone': phone,
+      'Gender': gender,
+      'dance': dance
+    };
+
     try {
       await databases!.createDocument(
         databaseId: "6562fc4e11f2e3d3642d",
         documentId: ID.unique(),
         collectionId: "6562fc6ea4c319be657e",
-        data: map,
+        data: userData,
         permissions: [
-          Permission.read(Role.user("6562fe9125ba9b4496ee")),
-          Permission.update(Role.user("6562fe9125ba9b4496ee")),
-          Permission.delete(Role.user("6562fe9125ba9b4496ee")),
+          Permission.read(Role.any()),
+          Permission.update(Role.any()),
+          Permission.delete(Role.any()),
         ],
       );
-      print("DatabaseController:: storeUserName $databases");
+      print("DatabaseController:: storeUserData - Data stored successfully");
     } catch (error) {
       Get.defaultDialog(
         title: "Error Database",

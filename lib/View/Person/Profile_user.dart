@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_mobile/Controller/ImagePickerController.dart';
+import 'package:project_mobile/Controller/DatabaseController.dart';
 
 class ProfilUser extends StatefulWidget {
   const ProfilUser({super.key});
@@ -17,10 +18,12 @@ class _ProfilUserState extends State<ProfilUser> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
+  final TextEditingController _danceController = TextEditingController();
 
   final ImagePickerController _imagePickerController =
       Get.put(ImagePickerController());
 
+  final DatabaseController _databaseController = Get.put(DatabaseController());
   // ImagePickerCtrl imagePickerCtrl = Get.put(ImagePickerCtrl());
 
   @override
@@ -247,6 +250,37 @@ class _ProfilUserState extends State<ProfilUser> {
                   child: Column(
                     children: [
                       Text(
+                        "Dance Type",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Vollkorn',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      TextFormField(
+                        controller: _danceController,
+                        decoration: InputDecoration(
+                          hintText: "Dance Type",
+                          labelText: "Dance",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Nama Harus Terisi!";
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
                         "Gender",
                         style: TextStyle(
                           fontSize: 15,
@@ -290,7 +324,17 @@ class _ProfilUserState extends State<ProfilUser> {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       EdgeInsets.symmetric(horizontal: 25, vertical: 10)),
                   elevation: MaterialStateProperty.all<double>(5)),
-              onPressed: () {},
+              onPressed: () {
+                _databaseController.storeUserData(
+                  _userNameController.text,
+                  _dOBController.text,
+                  _countryController.text,
+                  _emailController.text,
+                  _phoneController.text,
+                  _genderController.text,
+                  _danceController.text,
+                );
+              },
               child: const Text(
                 "Submit",
                 style: TextStyle(
