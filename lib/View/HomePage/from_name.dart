@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:project_mobile/Controller/DatabaseController.dart';
+import 'package:get/get.dart';
 
 class fromName extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
+
+  final DatabaseController _databaseController = Get.put(DatabaseController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +41,12 @@ class fromName extends StatelessWidget {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
             ),
             keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return "Email Harus Terisi!";
-              }
-              return null;
-            },
+            // validator: (value) {
+            //   if (value!.isEmpty) {
+            //     return "Email Harus Terisi!";
+            //   }
+            //   return null;
+            // },
           ),
           SizedBox(height: 10),
           TextFormField(
@@ -79,9 +83,13 @@ class fromName extends StatelessWidget {
                       EdgeInsets.only(top: 8, right: 22, bottom: 8, left: 22)),
                   elevation: MaterialStateProperty.all<double>(5)),
               onPressed: () {
-                String name = _nameController.text;
-                String email = _emailController.text;
-                String message = _emailController.text;
+                _databaseController.DataJadwal(
+                  _nameController.text,
+                  _messageController.text,
+                );
+                // Kode untuk menghapus teks
+                _nameController.clear();
+                _messageController.clear();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -334,6 +334,13 @@ class _ProfilUserState extends State<ProfilUser> {
                   _genderController.text,
                   _danceController.text,
                 );
+                _userNameController.clear();
+                _dOBController.clear();
+                _countryController.clear();
+                _emailController.clear();
+                _phoneController.clear();
+                _genderController.clear();
+                _danceController.clear();
               },
               child: const Text(
                 "Submit",
