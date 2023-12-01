@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_mobile/Controller/AuthController.dart';
+import 'package:project_mobile/View/Person/Profile_user.dart';
 
 class ProfilePage extends StatelessWidget {
   final AuthController _authController = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,7 @@ class ProfilePage extends StatelessWidget {
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: Color(0xff01294D),
-                        width: 4, // Ketebalan border
+                        width: 3, // Ketebalan border
                       ),
                     ),
                     child: CircleAvatar(
@@ -277,7 +279,12 @@ class ProfilePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ProfilUser();
+                      }));
+                    },
                     child: Text('Edit Profile'),
                     style: ButtonStyle(
                         backgroundColor:
@@ -315,7 +322,6 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: 20),
             ],
           ),
         ),

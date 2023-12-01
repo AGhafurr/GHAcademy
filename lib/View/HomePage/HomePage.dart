@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../Booking/booking_page.dart';
 import '../Favorites/favorites_page.dart';
 import '../Profil/profile_page.dart';
-import '../Profil/profill.dart';
 import 'button_becomean_artist.dart';
 import 'button_bookan_artist.dart';
 import 'button_horizontal.dart';

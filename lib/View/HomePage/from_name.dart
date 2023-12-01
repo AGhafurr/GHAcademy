@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class fromName extends StatelessWidget {
-  const fromName({
-    super.key,
-  });
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +12,7 @@ class fromName extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            controller: _nameController,
             decoration: InputDecoration(
               hintText: "Name",
               labelText: "Name",
@@ -28,6 +29,7 @@ class fromName extends StatelessWidget {
           ),
           SizedBox(height: 10),
           TextFormField(
+            controller: _emailController,
             decoration: InputDecoration(
               hintText: "Email",
               labelText: "Email",
@@ -44,6 +46,7 @@ class fromName extends StatelessWidget {
           ),
           SizedBox(height: 10),
           TextFormField(
+            controller: _messageController,
             autofocus: false,
             maxLines: 10,
             decoration: InputDecoration(
@@ -75,7 +78,11 @@ class fromName extends StatelessWidget {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       EdgeInsets.only(top: 8, right: 22, bottom: 8, left: 22)),
                   elevation: MaterialStateProperty.all<double>(5)),
-              onPressed: () {},
+              onPressed: () {
+                String name = _nameController.text;
+                String email = _emailController.text;
+                String message = _emailController.text;
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

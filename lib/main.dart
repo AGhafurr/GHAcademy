@@ -7,7 +7,7 @@ import 'package:project_mobile/firebase_options.dart';
 import 'Controller/AuthController.dart';
 import 'package:get/get.dart';
 import 'View/HomePage/HomePage.dart';
-import 'package:appwrite/appwrite.dart';
+// import 'package:appwrite/appwrite.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,6 @@ void main() async {
   runApp(MyApp());
 }
 
-// ghafur bijij
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 

@@ -1,6 +1,7 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:project_mobile/Controller/ImagePickerController.dart';
 
 class ProfilUser extends StatefulWidget {
   const ProfilUser({super.key});
@@ -10,27 +11,15 @@ class ProfilUser extends StatefulWidget {
 }
 
 class _ProfilUserState extends State<ProfilUser> {
-  File? image;
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _dOBController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
 
-  Future getImage() async {
-    final ImagePicker picker = ImagePicker();
-
-    // Pick an image.
-    final XFile? imagePicker =
-        await picker.pickImage(source: ImageSource.gallery);
-    image = File(imagePicker!.path);
-    setState(() {});
-  }
-
-  Future getImageCamera() async {
-    final ImagePicker picker = ImagePicker();
-
-    // Pick an image.
-    final XFile? imagePicker =
-        await picker.pickImage(source: ImageSource.camera);
-    image = File(imagePicker!.path);
-    setState(() {});
-  }
+  final ImagePickerController _imagePickerController =
+      Get.put(ImagePickerController());
 
   // ImagePickerCtrl imagePickerCtrl = Get.put(ImagePickerCtrl());
 
@@ -39,61 +28,64 @@ class _ProfilUserState extends State<ProfilUser> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(0xffF0EDD4),
+        backgroundColor: Color(0xff01294D),
         title: Text(
-          "PROFILE",
+          "EDIT PROFILE",
           style: TextStyle(
-            color: Color(0xff675D50),
+            color: Color(0xffFDFDFD),
             fontSize: 30,
             fontFamily: 'ToonyLine',
           ),
           textAlign: TextAlign.center,
         ),
       ),
-      backgroundColor: Color(0xffF0EDD4),
+      backgroundColor: Color(0xffFDFDFD),
       body: SingleChildScrollView(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 30),
-          image != null
-              ? Container(
-                  height: 100,
-                  width: 100,
-                  child: Image.file(
-                    image!,
-                    fit: BoxFit.cover,
-                  ))
-              : Container(),
+          Obx(() {
+            return _imagePickerController.image.value != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.file(
+                      _imagePickerController.image.value!,
+                      width: 250,
+                      height: 250,
+                    ),
+                  )
+                : Text('Pick Your Gorgeus Picture');
+          }),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MaterialButton(
-                  color: Color(0xff988373),
+                  color: Color(0xff03AEC6),
                   child: const Text(
                     "Gallery",
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   onPressed: () async {
-                    await getImage();
+                    _imagePickerController.getImage(ImageSource.gallery);
                   }),
               SizedBox(width: 40),
               MaterialButton(
-                  color: Color(0xff675D50),
+                  color: Color(0xff01294D),
                   child: const Text(
                     "Camera",
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   onPressed: () async {
-                    await getImageCamera();
+                    _imagePickerController.getImage(ImageSource.camera);
                   })
             ],
           ),
           SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
                 Container(
@@ -108,11 +100,12 @@ class _ProfilUserState extends State<ProfilUser> {
                         textAlign: TextAlign.left,
                       ),
                       TextFormField(
+                        controller: _userNameController,
                         decoration: InputDecoration(
                           hintText: "Name",
                           labelText: "Name",
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
@@ -125,7 +118,7 @@ class _ProfilUserState extends State<ProfilUser> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 Container(
                   child: Column(
                     children: [
@@ -138,11 +131,12 @@ class _ProfilUserState extends State<ProfilUser> {
                         textAlign: TextAlign.left,
                       ),
                       TextFormField(
+                        controller: _dOBController,
                         decoration: InputDecoration(
                           hintText: "Date of Birth",
                           labelText: "Date of Birth",
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
@@ -155,7 +149,7 @@ class _ProfilUserState extends State<ProfilUser> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 Container(
                   child: Column(
                     children: [
@@ -168,11 +162,12 @@ class _ProfilUserState extends State<ProfilUser> {
                         textAlign: TextAlign.left,
                       ),
                       TextFormField(
+                        controller: _countryController,
                         decoration: InputDecoration(
                           hintText: "Country",
                           labelText: "Country",
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
@@ -185,7 +180,7 @@ class _ProfilUserState extends State<ProfilUser> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 Container(
                   child: Column(
                     children: [
@@ -198,11 +193,12 @@ class _ProfilUserState extends State<ProfilUser> {
                         textAlign: TextAlign.left,
                       ),
                       TextFormField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           hintText: "Email",
                           labelText: "Email",
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
@@ -215,7 +211,38 @@ class _ProfilUserState extends State<ProfilUser> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Phone Number",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Vollkorn',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      TextFormField(
+                        controller: _phoneController,
+                        decoration: InputDecoration(
+                          hintText: "Phone Number",
+                          labelText: "Phone",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Nama Harus Terisi!";
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
                 Container(
                   child: Column(
                     children: [
@@ -228,11 +255,12 @@ class _ProfilUserState extends State<ProfilUser> {
                         textAlign: TextAlign.left,
                       ),
                       TextFormField(
+                        controller: _genderController,
                         decoration: InputDecoration(
-                          hintText: "Name",
-                          labelText: "Name",
+                          hintText: "Gender",
+                          labelText: "gender",
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
@@ -245,66 +273,7 @@ class _ProfilUserState extends State<ProfilUser> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Password",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Vollkorn',
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          labelText: "Password",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                        ),
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Nama Harus Terisi!";
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Confirm Password",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Vollkorn',
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Confirm Password",
-                          labelText: "Confirm Password",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                        ),
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Nama Harus Terisi!";
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                SizedBox(height: 15),
               ],
             ),
           ),
@@ -312,20 +281,20 @@ class _ProfilUserState extends State<ProfilUser> {
           ElevatedButton(
               style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xffECCDB4)),
+                      MaterialStateProperty.all<Color>(Color(0xff03AEC6)),
                   side: MaterialStateProperty.all(
-                      BorderSide(color: Color(0xff675D50), width: 1)),
+                      BorderSide(color: Color(0xff01294D), width: 1)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
+                          borderRadius: BorderRadius.circular(5))),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 10)),
+                      EdgeInsets.symmetric(horizontal: 25, vertical: 10)),
                   elevation: MaterialStateProperty.all<double>(5)),
               onPressed: () {},
               child: const Text(
                 "Submit",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 16,
                   fontFamily: 'Vollkorn',
                 ),

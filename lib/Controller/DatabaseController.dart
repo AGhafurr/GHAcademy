@@ -15,7 +15,7 @@ class DatabaseController extends ClientController {
   Future storeUserName(Map map) async {
     try {
       await databases!.createDocument(
-        databaseId: "6562fc6ea4c319be657e",
+        databaseId: "6562fc4e11f2e3d3642d",
         documentId: ID.unique(),
         collectionId: "6562fc6ea4c319be657e",
         data: map,
