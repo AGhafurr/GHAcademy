@@ -99,6 +99,34 @@ class DatabaseController extends ClientController {
     }
   }
 
+  Future<void> updateMessage(
+      String documentId, Map<String, dynamic> updatedData) async {
+    try {
+      await databases!.updateDocument(
+        databaseId: "6562fc4e11f2e3d3642d",
+        collectionId: "6569df9e8bd9dd69415b",
+        documentId: documentId,
+        data: updatedData,
+      );
+      print("DatabaseController:: updateMessage - Data updated successfully");
+    } catch (error) {
+      print("Error updating message: $error");
+    }
+  }
+
+  Future<void> deleteMessage(String documentId) async {
+    try {
+      await databases!.deleteDocument(
+        databaseId: "6562fc4e11f2e3d3642d",
+        collectionId: "6569df9e8bd9dd69415b",
+        documentId: documentId,
+      );
+      print("DatabaseController:: deleteMessage - Data deleted successfully");
+    } catch (error) {
+      print("Error deleting message: $error");
+    }
+  }
+
   Rx<List<Map<String, dynamic>>> messages = Rx<List<Map<String, dynamic>>>([]);
 
   // Fungsi untuk mengambil pesan dari database
@@ -111,13 +139,13 @@ class DatabaseController extends ClientController {
         collectionId: "6569df9e8bd9dd69415b",
       );
 
+      // ignore: unnecessary_null_comparison
       if (response.documents != null) {
         List<Map<String, dynamic>> convertedMessages =
-            response.documents!.map((document) => document.data).toList();
+            response.documents.map((document) => document.data).toList();
         messages.value = convertedMessages;
       }
     } catch (error) {
-      // Handle error jika terjadi kesalahan saat mengambil data dari database
       print("Error: $error");
     }
   }

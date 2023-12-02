@@ -39,13 +39,12 @@ class ChatWidget extends StatelessWidget {
           final message = _databaseController.messages.value[index];
           final name = message['name'];
           final messageText = message['message'];
-          final isMe =
-              true; // Atur kondisi untuk menentukan apakah pesan dari pengguna saat ini
+          final documentId = message['\$id'];
 
           return buildBubbleMessage(
-            isMe: isMe,
             name: name,
             message: messageText,
+            documentId: documentId,
           );
         },
       );
@@ -53,16 +52,16 @@ class ChatWidget extends StatelessWidget {
   }
 
   Widget buildBubbleMessage({
-    required bool isMe,
     required String name,
     required String message,
+    required String documentId,
   }) {
     return Container(
       padding: EdgeInsets.all(13.0),
       margin: EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
-        color: isMe ? Color(0xff03AEC6) : Colors.grey,
-        borderRadius: BorderRadius.circular(8.0),
+        color: Color(0xff03AEC6),
+        borderRadius: BorderRadius.circular(5.0),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,19 +96,99 @@ class ChatWidget extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.edit_note_outlined),
                 iconSize: 36,
-                onPressed: () {},
-                color: Color(0xffFDFDFD),
+                onPressed: () {
+                  _showEditDialog(name, message, documentId);
+                },
+                color: Color(0xff01294D),
               ),
               IconButton(
                 icon: const Icon(Icons.delete_outline_rounded),
                 iconSize: 36,
-                onPressed: () {},
-                color: Color(0xffFDFDFD),
+                onPressed: () {
+                  _deleteMessage(documentId);
+                },
+                color: Color(0xff01294D),
               ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  void _showEditDialog(String name, String message, String documentId) {
+    Get.defaultDialog(
+      titlePadding: EdgeInsets.all(20),
+      title: 'Edit Message',
+      titleStyle: TextStyle(
+        fontSize: 25,
+        fontFamily: 'Unlock',
+      ),
+      content: Column(
+        children: [
+          TextFormField(
+            initialValue: name,
+            style: TextStyle(
+              fontSize: 15,
+              fontFamily: 'Vollkorn',
+            ),
+            onChanged: (value) {
+              name = value;
+            },
+            decoration: InputDecoration(
+              labelText: "Name",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+            ),
+          ),
+          SizedBox(height: 15),
+          TextFormField(
+            initialValue: message,
+            style: TextStyle(
+              fontSize: 15,
+              fontFamily: 'Vollkorn',
+            ),
+            onChanged: (value) {
+              message = value;
+            },
+            decoration: InputDecoration(
+              labelText: "Message",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        ElevatedButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Color(0xff01294D)),
+              side: MaterialStateProperty.all(
+                  BorderSide(color: Color(0xff03AEC6), width: 1)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5))),
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  EdgeInsets.symmetric(horizontal: 25, vertical: 10)),
+              elevation: MaterialStateProperty.all<double>(5)),
+          onPressed: () {
+            _databaseController.updateMessage(documentId, {
+              'name': name,
+              'message': message,
+            });
+            Get.back();
+          },
+          child: Icon(
+            Icons.verified_outlined,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _deleteMessage(String documentId) {
+    _databaseController.deleteMessage(documentId);
   }
 }

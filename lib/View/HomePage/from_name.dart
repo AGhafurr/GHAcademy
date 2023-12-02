@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 
 class fromName extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
-
   final DatabaseController _databaseController = Get.put(DatabaseController());
 
   @override
