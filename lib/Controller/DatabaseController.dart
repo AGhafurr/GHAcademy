@@ -54,7 +54,7 @@ class DatabaseController extends ClientController {
     }
   }
 
-  Future DataJadwal(String name, String message) async {
+  Future Message(String name, String message) async {
     Map<String, dynamic> jadwalData = {
       'name': name,
       'message': message,
@@ -96,6 +96,29 @@ class DatabaseController extends ClientController {
         ),
         contentPadding: const EdgeInsets.only(top: 5, left: 15, right: 15),
       );
+    }
+  }
+
+  Rx<List<Map<String, dynamic>>> messages = Rx<List<Map<String, dynamic>>>([]);
+
+  // Fungsi untuk mengambil pesan dari database
+  Future<void> getMessages() async {
+    try {
+      // Ganti dengan kode untuk mengambil data pesan dari database
+      // Contoh pengambilan data dari database
+      final response = await databases!.listDocuments(
+        databaseId: "6562fc4e11f2e3d3642d",
+        collectionId: "6569df9e8bd9dd69415b",
+      );
+
+      if (response.documents != null) {
+        List<Map<String, dynamic>> convertedMessages =
+            response.documents!.map((document) => document.data).toList();
+        messages.value = convertedMessages;
+      }
+    } catch (error) {
+      // Handle error jika terjadi kesalahan saat mengambil data dari database
+      print("Error: $error");
     }
   }
 }

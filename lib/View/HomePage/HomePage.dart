@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Booking/booking_page.dart';
+import '../Message/MessagePage.dart';
 import '../Favorites/favorites_page.dart';
 import '../Profil/profile_page.dart';
 import 'button_becomean_artist.dart';
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     HomePageContent(),
     FavoritesPage(),
-    BookingPage(),
+    MessagePage(),
     ProfilePage(),
   ];
   @override
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
               ),
               GButton(
                 icon: Icons.comment_bank_outlined,
-                text: 'Booking',
+                text: 'Message',
                 iconColor: Colors.white,
               ),
               GButton(

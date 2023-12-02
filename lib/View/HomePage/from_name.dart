@@ -33,23 +33,6 @@ class fromName extends StatelessWidget {
           ),
           SizedBox(height: 10),
           TextFormField(
-            controller: _emailController,
-            decoration: InputDecoration(
-              hintText: "Email",
-              labelText: "Email",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-            ),
-            keyboardType: TextInputType.text,
-            // validator: (value) {
-            //   if (value!.isEmpty) {
-            //     return "Email Harus Terisi!";
-            //   }
-            //   return null;
-            // },
-          ),
-          SizedBox(height: 10),
-          TextFormField(
             controller: _messageController,
             autofocus: false,
             maxLines: 10,
@@ -83,7 +66,7 @@ class fromName extends StatelessWidget {
                       EdgeInsets.only(top: 8, right: 22, bottom: 8, left: 22)),
                   elevation: MaterialStateProperty.all<double>(5)),
               onPressed: () {
-                _databaseController.DataJadwal(
+                _databaseController.Message(
                   _nameController.text,
                   _messageController.text,
                 );
