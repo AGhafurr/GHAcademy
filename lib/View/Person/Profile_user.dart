@@ -325,7 +325,7 @@ class _ProfilUserState extends State<ProfilUser> {
                       EdgeInsets.symmetric(horizontal: 25, vertical: 10)),
                   elevation: MaterialStateProperty.all<double>(5)),
               onPressed: () {
-                _databaseController.storeUserData(
+                _databaseController.updateUserData(
                   _userNameController.text,
                   _dOBController.text,
                   _countryController.text,
