@@ -326,9 +326,8 @@ class ProfilePage extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border: Border(
                                       bottom: BorderSide(
-                                        color:
-                                            Colors.black, // Warna garis bawah
-                                        width: 1.0, // Ketebalan garis
+                                        color: Colors.black,
+                                        width: 1.0,
                                       ),
                                     ),
                                   ),
