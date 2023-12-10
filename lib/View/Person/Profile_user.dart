@@ -292,7 +292,7 @@ class _ProfilUserState extends State<ProfilUser> {
                         controller: _genderController,
                         decoration: InputDecoration(
                           hintText: "Gender",
-                          labelText: "gender",
+                          labelText: "Gender",
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),

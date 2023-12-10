@@ -88,6 +88,7 @@ class DatabaseController extends ClientController {
           collectionId: "6562fc6ea4c319be657e",
           data: userData,
         );
+
         print(
             "DatabaseController:: updateUserData - Data updated successfully");
         Get.to(() => HomePage());
@@ -127,9 +128,7 @@ class DatabaseController extends ClientController {
           documentId: documentId,
         );
 
-        if (response.data != null) {
-          userData = response.data;
-        }
+        userData = response.data;
       } catch (error) {
         print("Error fetching user data: $error");
         // Handle error using GetX dialog or snackbar
